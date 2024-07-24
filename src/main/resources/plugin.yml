@@ -1,0 +1,6 @@
+name: KillReward
+version: '1.0-SNAPSHOT'
+main: top.mores.killReward.KillReward
+api-version: '1.18'
+authors: [ Mores ]
+description: 击杀奖励
