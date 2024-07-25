@@ -8,7 +8,7 @@ public class ExpReward {
     FileConfiguration ConfigFile = KillReward.config;
     private final boolean ENABLED = ConfigFile.getBoolean("击杀给予经验值.启用");
     private final int XP_MIN = ConfigFile.getInt("击杀给予经验值.经验值.min");
-    private final int XP_MAX=ConfigFile.getInt("击杀给予经验值.经验.max");
+    private final int XP_MAX = ConfigFile.getInt("击杀给予经验值.经验值.max");
     private final int XP_LEVEL = ConfigFile.getInt("击杀给予经验值.等级上限");
     private final boolean EXP_FROM_ORB = ConfigFile.getBoolean("击杀给予经验值.获取掉落经验");
     private final String MAIN_WORLD = ConfigFile.getString("击杀给予经验值.主世界");
@@ -25,7 +25,7 @@ public class ExpReward {
         return XP_MIN;
     }
 
-    public int getXP_MAX(){
+    public int getXP_MAX() {
         return XP_MAX;
     }
 
@@ -38,12 +38,28 @@ public class ExpReward {
     }
 
     //初始化玩家数据
-    public void initPlayerData(Player player){
+    public void initPlayerData(Player player) {
         String playerName = player.getName();
-        if (!ConfigFile.contains("Player."+playerName)){
-            ConfigFile.set("Player." + playerName + ".ChangeExp", false);
+        if (!ConfigFile.contains("Player." + playerName)) {
             ConfigFile.set("Player." + playerName + ".ExpAmount", 0);
             KillReward.getInstance().saveConfigFile();
         }
+    }
+
+    //更新玩家更改的经验数值
+    public void initPlayerExpAmount(Player player, int ExpAmount) {
+        String playerName = player.getName();
+        int changeExpAmount = ConfigFile.getInt("Player." + playerName + ".ExpAmount") + ExpAmount;
+        ConfigFile.set("Player." + playerName + ".ExpAmount", changeExpAmount);
+        KillReward.getInstance().saveConfigFile();
+    }
+
+    public int getPlayerExpAmount(String playerName) {
+        return ConfigFile.getInt("Player." + playerName + ".ExpAmount");
+    }
+
+    public void replaceExpAmount(String playerName) {
+        ConfigFile.set("Player." + playerName + ".ExpAmount", 0);
+        KillReward.getInstance().saveConfigFile();
     }
 }

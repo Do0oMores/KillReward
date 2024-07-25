@@ -5,7 +5,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.player.PlayerChangedWorldEvent;
 import org.bukkit.event.player.PlayerExpChangeEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
 import top.mores.killReward.Exp.ExpHandle;
 import top.mores.killReward.Exp.ExpReward;
 import top.mores.killReward.Utils.RewardUtil;
@@ -38,6 +40,22 @@ public class PlayerListener implements Listener {
     public void onPlayerGetExp(PlayerExpChangeEvent event) {
         if (!expReward.isEXP_FROM_ORB()) {
             event.setAmount(0);
+        }
+    }
+
+    @EventHandler
+    public void onPlayerJoin(PlayerJoinEvent event) {
+        Player player = event.getPlayer();
+        expReward.initPlayerData(player);
+    }
+
+    @EventHandler
+    public void onPlayerChangeWorld(PlayerChangedWorldEvent event) {
+        String MainWorldName = expReward.getMAIN_WORLD();
+        String ChangeWorldName = event.getFrom().getName();
+        Player player = event.getPlayer();
+        if (!ChangeWorldName.equals(MainWorldName)) {
+            expHandle.SyncPlayerExp(player);
         }
     }
 }

@@ -13,5 +13,4 @@
   主世界: world
 Player:
   ExamplePlayerName:
-   ChangeExp: false
    ExpAmount: 0
