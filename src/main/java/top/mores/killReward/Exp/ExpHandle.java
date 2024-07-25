@@ -29,7 +29,10 @@ public class ExpHandle {
     public void SyncPlayerExp(Player player) {
         String playerName = player.getName();
         int changeExp = expReward.getPlayerExpAmount(playerName);
-        player.giveExp(changeExp);
+        int playerLevel = player.getLevel();
+        if (playerLevel < expReward.getXP_LEVEL()) {
+            player.giveExp(changeExp);
+        }
         player.sendMessage(ChatColor.GREEN + "您在刚才的游戏中共获得: " + ChatColor.GOLD + changeExp + ChatColor.GREEN + " 点经验");
         //重置经验值
         expReward.replaceExpAmount(playerName);
