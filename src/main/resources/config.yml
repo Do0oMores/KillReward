@@ -2,11 +2,16 @@
 击杀给予经验值:
   #是否启用
   启用: true
-  #只在玩家击杀玩家（PVP）时给予经验值
-  仅限玩家: true
   #从掉落经验球中获取经验
   获取掉落经验: false
-  #每次击杀给予的经验值
-  经验值: 1
+  #每次击杀给予的经验值(在min-max之间随机)
+  经验值:
+    min: 1
+    max: 3
   #经验等级上限
   等级上限: 500
+  主世界: world
+Player:
+  ExamplePlayerName:
+   ChangeExp: false
+   ExpAmount: 0
