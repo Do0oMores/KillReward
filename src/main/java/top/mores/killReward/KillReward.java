@@ -6,6 +6,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import top.mores.killReward.Exp.ExpHandle;
 import top.mores.killReward.Exp.ExpReward;
 import top.mores.killReward.Utils.RewardUtil;
+import top.mores.killReward.Vault.VaultHandle;
 
 import java.io.File;
 import java.io.IOException;
@@ -32,6 +33,11 @@ public final class KillReward extends JavaPlugin {
         ExpHandle expHandle = new ExpHandle();
         RewardUtil rewardUtil = new RewardUtil();
         getServer().getPluginManager().registerEvents(new PlayerListener(expReward, rewardUtil, expHandle), this);
+        if (!VaultHandle.setupEconomy()) {
+            getLogger().severe("Vault plugin not found! Disabling plugin.");
+            getServer().getPluginManager().disablePlugin(this);
+            return;
+        }
         getLogger().info("Enabled!");
     }
 

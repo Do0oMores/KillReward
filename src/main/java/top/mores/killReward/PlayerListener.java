@@ -11,9 +11,13 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import top.mores.killReward.Exp.ExpHandle;
 import top.mores.killReward.Exp.ExpReward;
 import top.mores.killReward.Utils.RewardUtil;
+import top.mores.killReward.Vault.VaultHandle;
+import top.mores.killReward.Vault.VaultReward;
 
 public class PlayerListener implements Listener {
     private final ExpReward expReward;
+    VaultReward vaultReward=new VaultReward();
+    VaultHandle vaultHandle=new VaultHandle();
     RewardUtil rewardUtil;
     ExpHandle expHandle;
 
@@ -31,6 +35,11 @@ public class PlayerListener implements Listener {
             if (expReward.isENABLED()) {
                 if (rewardUtil.IsPlayer(killer)) {
                     expHandle.addPlayerExp((Player) killer);
+                }
+            }
+            if (vaultReward.isENABLED()){
+                if (rewardUtil.IsPlayer(killer)){
+                    vaultHandle.addPlayerVault((Player) killer);
                 }
             }
         }

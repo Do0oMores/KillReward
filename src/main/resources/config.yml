@@ -11,6 +11,11 @@
   #经验等级上限
   等级上限: 500
   主世界: world
+击杀给予经济:
+  启用: true
+  经济:
+    min: 10.0
+    max: 30.0
 Player:
   ExamplePlayerName:
    ExpAmount: 0
