@@ -11,7 +11,7 @@ public class ExpReward {
     private final int XP_MAX = ConfigFile.getInt("击杀给予经验值.经验值.max");
     private final int XP_LEVEL = ConfigFile.getInt("击杀给予经验值.等级上限");
     private final boolean EXP_FROM_ORB = ConfigFile.getBoolean("击杀给予经验值.获取掉落经验");
-    private final String MAIN_WORLD = ConfigFile.getString("击杀给予经验值.主世界");
+    private final String MAIN_WORLD = ConfigFile.getString("击杀给予经验值.世界.主世界名");
 
     public boolean isEXP_FROM_ORB() {
         return EXP_FROM_ORB;

@@ -1,7 +1,5 @@
 package top.mores.killReward;
 
-import com.onarandombox.MultiverseCore.MultiverseCore;
-import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -17,7 +15,7 @@ public final class KillReward extends JavaPlugin {
     public static FileConfiguration config;
     private static KillReward instance;
     private File configFile;
-    MultiverseCore multiverseCore;
+
 
     @Override
     public void onEnable() {
@@ -33,16 +31,14 @@ public final class KillReward extends JavaPlugin {
         }
         config = YamlConfiguration.loadConfiguration(configFile);
         ExpReward expReward = new ExpReward();
-        ExpHandle expHandle = new ExpHandle();
         RewardUtil rewardUtil = new RewardUtil();
-        getServer().getPluginManager().registerEvents(new PlayerListener(expReward, rewardUtil, expHandle), this);
+        ExpHandle expHandle = new ExpHandle();
+        getServer().getPluginManager().registerEvents(new PlayerListener(this, expReward, rewardUtil, expHandle), this);
         if (!VaultHandle.setupEconomy()) {
             getLogger().severe("Vault plugin not found! Disabling plugin.");
             getServer().getPluginManager().disablePlugin(this);
             return;
         }
-        // 获取MultiverseCore实例
-        multiverseCore = (MultiverseCore) Bukkit.getServer().getPluginManager().getPlugin("Multiverse-Core");
         getLogger().info("Enabled!");
     }
 

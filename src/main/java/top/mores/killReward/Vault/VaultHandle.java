@@ -36,7 +36,7 @@ public class VaultHandle {
         double vaultAmount = RandomValue();
         EconomyResponse response = economy.depositPlayer(player, vaultAmount);
         if (response.transactionSuccess()) {
-            player.sendMessage(ChatColor.GREEN + "您因击杀获得 " + ChatColor.GOLD + vaultAmount + ChatColor.GREEN +" 金币");
+            player.sendMessage(ChatColor.GREEN + "您因击杀获得 " + ChatColor.GOLD + vaultAmount + ChatColor.GREEN + " 金币");
         } else {
             System.out.println("添加金币失败");
         }

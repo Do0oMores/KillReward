@@ -10,7 +10,13 @@
     max: 3
   #经验等级上限
   等级上限: 500
-  主世界: world
+  世界:
+    主世界名: world
+    #进入游戏时自动回到主世界
+    启用: true
+    #在这些世界不会自动回到主世界
+    排除的世界:
+      - world
 击杀给予经济:
   启用: true
   经济:
@@ -18,4 +24,4 @@
     max: 30.0
 Player:
   ExamplePlayerName:
-   ExpAmount: 0
+    ExpAmount: 0
