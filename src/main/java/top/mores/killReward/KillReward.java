@@ -1,5 +1,7 @@
 package top.mores.killReward;
 
+import com.onarandombox.MultiverseCore.MultiverseCore;
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -15,6 +17,7 @@ public final class KillReward extends JavaPlugin {
     public static FileConfiguration config;
     private static KillReward instance;
     private File configFile;
+    MultiverseCore multiverseCore;
 
     @Override
     public void onEnable() {
@@ -38,6 +41,8 @@ public final class KillReward extends JavaPlugin {
             getServer().getPluginManager().disablePlugin(this);
             return;
         }
+        // 获取MultiverseCore实例
+        multiverseCore = (MultiverseCore) Bukkit.getServer().getPluginManager().getPlugin("Multiverse-Core");
         getLogger().info("Enabled!");
     }
 
