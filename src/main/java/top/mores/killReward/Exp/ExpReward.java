@@ -6,35 +6,29 @@ import top.mores.killReward.KillReward;
 
 public class ExpReward {
     FileConfiguration ConfigFile = KillReward.config;
-    private final boolean ENABLED = ConfigFile.getBoolean("击杀给予经验值.启用");
-    private final int XP_MIN = ConfigFile.getInt("击杀给予经验值.经验值.min");
-    private final int XP_MAX = ConfigFile.getInt("击杀给予经验值.经验值.max");
-    private final int XP_LEVEL = ConfigFile.getInt("击杀给予经验值.等级上限");
-    private final boolean EXP_FROM_ORB = ConfigFile.getBoolean("击杀给予经验值.获取掉落经验");
-    private final String MAIN_WORLD = ConfigFile.getString("击杀给予经验值.世界.主世界名");
 
     public boolean isEXP_FROM_ORB() {
-        return EXP_FROM_ORB;
+        return KillReward.getInstance().getConfig().getBoolean("击杀给予经验值.获取掉落经验");
     }
 
     public boolean isENABLED() {
-        return ENABLED;
+        return KillReward.getInstance().getConfig().getBoolean("击杀给予经验值.启用");
     }
 
     public int getXP_MIN() {
-        return XP_MIN;
+        return KillReward.getInstance().getConfig().getInt("击杀给予经验值.经验值.min");
     }
 
     public int getXP_MAX() {
-        return XP_MAX;
+        return KillReward.getInstance().getConfig().getInt("击杀给予经验值.经验值.max");
     }
 
     public int getXP_LEVEL() {
-        return XP_LEVEL;
+        return KillReward.getInstance().getConfig().getInt("击杀给予经验值.等级上限");
     }
 
     public String getMAIN_WORLD() {
-        return MAIN_WORLD;
+        return KillReward.getInstance().getConfig().getString("世界.主世界名");
     }
 
     //初始化玩家数据

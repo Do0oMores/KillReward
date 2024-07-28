@@ -5,11 +5,13 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 import top.mores.killReward.Exp.ExpHandle;
 import top.mores.killReward.Exp.ExpReward;
+import top.mores.killReward.Utils.RewardCommand;
 import top.mores.killReward.Utils.RewardUtil;
 import top.mores.killReward.Vault.VaultHandle;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Objects;
 
 public final class KillReward extends JavaPlugin {
     public static FileConfiguration config;
@@ -29,7 +31,7 @@ public final class KillReward extends JavaPlugin {
             }
             saveResource("config.yml", false);
         }
-        config = YamlConfiguration.loadConfiguration(configFile);
+        reloadConfigFile();
         ExpReward expReward = new ExpReward();
         RewardUtil rewardUtil = new RewardUtil();
         ExpHandle expHandle = new ExpHandle();
@@ -39,6 +41,8 @@ public final class KillReward extends JavaPlugin {
             getServer().getPluginManager().disablePlugin(this);
             return;
         }
+        // 注册命令
+        Objects.requireNonNull(getCommand("kr")).setExecutor(new RewardCommand());
         getLogger().info("Enabled!");
     }
 
@@ -59,5 +63,16 @@ public final class KillReward extends JavaPlugin {
         } catch (IOException e) {
             System.out.println("保存配置文件出错！");
         }
+    }
+
+    // 重载配置文件
+    public void reloadConfigFile() {
+        config = YamlConfiguration.loadConfiguration(configFile);
+    }
+
+    // 获取配置文件
+    @Override
+    public FileConfiguration getConfig() {
+        return config;
     }
 }

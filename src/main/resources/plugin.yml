@@ -5,3 +5,11 @@ api-version: '1.18'
 authors: [ Mores ]
 description: 击杀奖励
 soft depend: [ 'Vault' ,'Multiverse-Core' ]
+commands:
+  kr:
+    description: KillReward commands
+    usage: /kr <load>
+    permissions:
+      killreward.reload:
+        description: 允许重载KillReward配置文件
+        default: op
