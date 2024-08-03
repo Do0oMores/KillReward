@@ -18,7 +18,6 @@ public final class KillReward extends JavaPlugin {
     private static KillReward instance;
     private File configFile;
 
-
     @Override
     public void onEnable() {
         instance = this;

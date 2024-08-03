@@ -85,8 +85,10 @@ public class PlayerListener implements Listener {
 
     public void teleportPlayerToMainWorld(Player player) {
         String worldName = expReward.getMAIN_WORLD();
-        // 使用服务器控制台执行命令
-        String command = String.format("mv tp %s %s", player.getName(), worldName);
-        Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), command);
+        if (!player.isOp()) {
+            // 使用服务器控制台执行命令
+            String command = String.format("mv tp %s %s", player.getName(), worldName);
+            Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), command);
+        }
     }
 }
