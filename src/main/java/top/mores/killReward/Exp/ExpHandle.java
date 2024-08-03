@@ -33,8 +33,22 @@ public class ExpHandle {
         if (playerLevel < expReward.getXP_LEVEL()) {
             player.giveExp(changeExp);
         }
-        player.sendMessage(ChatColor.GREEN + "您在刚才的游戏中共获得: " + ChatColor.GOLD + changeExp + ChatColor.GREEN + " 点经验");
+        if (changeExp != 0) {
+            int playerKill = expReward.getPlayerKillAmount(playerName);
+            int playerDeath = expReward.getPlayerDeathAmount(playerName);
+            float kd = playerDeath == 0 ? playerKill : (float) playerKill / playerDeath;
+            String playerKD = String.format("%.2f", kd);
+
+            player.sendMessage(ChatColor.GREEN + "您在刚才的游戏中共获得: " + ChatColor.GOLD + changeExp + ChatColor.GREEN + " 点经验");
+            player.sendMessage(ChatColor.AQUA + "赛后总结： " +
+                    ChatColor.DARK_GREEN + "击杀  " +
+                    ChatColor.GOLD + playerKill +"-"+
+                    ChatColor.DARK_RED + "  死亡  " +
+                    ChatColor.GOLD + playerDeath +"-"+
+                    ChatColor.DARK_PURPLE + "  K/D  " +
+                    ChatColor.GOLD + playerKD);
+        }
         //重置经验值
-        expReward.replaceExpAmount(playerName);
+        expReward.replaceAmount(playerName);
     }
 }

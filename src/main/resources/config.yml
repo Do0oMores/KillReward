@@ -25,3 +25,5 @@
 Player:
   ExamplePlayerName:
     ExpAmount: 0
+    KillAmount: 0
+    DeathAmount: 0

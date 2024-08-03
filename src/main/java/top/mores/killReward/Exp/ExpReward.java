@@ -36,6 +36,8 @@ public class ExpReward {
         String playerName = player.getName();
         if (!ConfigFile.contains("Player." + playerName)) {
             ConfigFile.set("Player." + playerName + ".ExpAmount", 0);
+            ConfigFile.set("Player." + playerName + ".KillAmount", 0);
+            ConfigFile.set("Player." + playerName + ".DeathAmount", 0);
             KillReward.getInstance().saveConfigFile();
         }
     }
@@ -48,12 +50,30 @@ public class ExpReward {
         KillReward.getInstance().saveConfigFile();
     }
 
+    //更新玩家更改的值
+    public void addPlayerAmount(Player player, String charValue) {
+        String playerName = player.getName();
+        int changeAmount = ConfigFile.getInt("Player." + playerName + "." + charValue) + 1;
+        ConfigFile.set("Player." + playerName + "." + charValue, changeAmount);
+        KillReward.getInstance().saveConfigFile();
+    }
+
     public int getPlayerExpAmount(String playerName) {
         return ConfigFile.getInt("Player." + playerName + ".ExpAmount");
     }
 
-    public void replaceExpAmount(String playerName) {
+    public int getPlayerKillAmount(String playerName) {
+        return ConfigFile.getInt("Player." + playerName + ".KillAmount");
+    }
+
+    public int getPlayerDeathAmount(String playerName) {
+        return ConfigFile.getInt("Player." + playerName + ".DeathAmount");
+    }
+
+    public void replaceAmount(String playerName) {
         ConfigFile.set("Player." + playerName + ".ExpAmount", 0);
+        ConfigFile.set("Player." + playerName + ".KillAmount", 0);
+        ConfigFile.set("Player." + playerName + ".DeathAmount", 0);
         KillReward.getInstance().saveConfigFile();
     }
 }

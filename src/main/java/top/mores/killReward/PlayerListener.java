@@ -36,14 +36,13 @@ public class PlayerListener implements Listener {
     public void onPlayerDeath(PlayerDeathEvent event) {
         Player player = event.getEntity();
         Entity killer = player.getKiller();
-
         if (killer != null && rewardUtil.IsPlayer(killer)) {
             Player killerPlayer = (Player) killer;
-
+            expReward.addPlayerAmount(player, "DeathAmount");
+            expReward.addPlayerAmount(killerPlayer, "KillAmount");
             if (expReward.isENABLED()) {
                 expHandle.addPlayerExp(killerPlayer);
             }
-
             if (vaultReward.isENABLED()) {
                 vaultHandle.addPlayerVault(killerPlayer);
             }
@@ -77,9 +76,14 @@ public class PlayerListener implements Listener {
     public void onPlayerChangeWorld(PlayerChangedWorldEvent event) {
         String MainWorldName = expReward.getMAIN_WORLD();
         String ChangeWorldName = event.getFrom().getName();
-        Player player = event.getPlayer();
         if (!ChangeWorldName.equals(MainWorldName)) {
-            expHandle.SyncPlayerExp(player);
+            Player player = event.getPlayer();
+            new BukkitRunnable(){
+                @Override
+                public void run(){
+                    expHandle.SyncPlayerExp(player);
+                }
+            }.runTaskLater(plugin,20L);
         }
     }
 
