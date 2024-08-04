@@ -42,9 +42,9 @@ public class ExpHandle {
             player.sendMessage(ChatColor.GREEN + "您在刚才的游戏中共获得: " + ChatColor.GOLD + changeExp + ChatColor.GREEN + " 点经验");
             player.sendMessage(ChatColor.AQUA + "赛后总结： " +
                     ChatColor.DARK_GREEN + "击杀  " +
-                    ChatColor.GOLD + playerKill +"-"+
+                    ChatColor.GOLD + playerKill +
                     ChatColor.DARK_RED + "  死亡  " +
-                    ChatColor.GOLD + playerDeath +"-"+
+                    ChatColor.GOLD + playerDeath +
                     ChatColor.DARK_PURPLE + "  K/D  " +
                     ChatColor.GOLD + playerKD);
         }
