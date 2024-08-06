@@ -16,9 +16,8 @@ public class ExpHandle {
     }
 
     private int RandomValue() {
-        int min, max;
-        min = expReward.getXP_MIN();
-        max = expReward.getXP_MAX();
+        int min = expReward.getXP_MIN();
+        int max = expReward.getXP_MAX();
         if (min > max) {
             throw new IllegalArgumentException("max必须大于或者等于min");
         }
