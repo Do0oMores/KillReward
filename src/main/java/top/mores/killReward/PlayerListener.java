@@ -36,18 +36,23 @@ public class PlayerListener implements Listener {
     public void onPlayerDeath(PlayerDeathEvent event) {
         Player player = event.getEntity();
         Entity killer = player.getKiller();
-        if (killer != null && rewardUtil.IsPlayer(killer)) {
-            Player killerPlayer = (Player) killer;
-            expReward.addPlayerAmount(player, "DeathAmount");
-            expReward.addPlayerAmount(killerPlayer, "KillAmount");
-            if (expReward.isENABLED()) {
-                expHandle.addPlayerExp(killerPlayer);
-            }
-            if (vaultReward.isENABLED()) {
-                vaultHandle.addPlayerVault(killerPlayer);
-            }
+
+        if (killer == null || !rewardUtil.IsPlayer(killer)) {
+            return;
+        }
+
+        Player killerPlayer = (Player) killer;
+        expReward.addPlayerAmount(player, "DeathAmount");
+        expReward.addPlayerAmount(killerPlayer, "KillAmount");
+
+        if (expReward.isENABLED()) {
+            expHandle.addPlayerExp(killerPlayer);
+        }
+        if (vaultReward.isENABLED()) {
+            vaultHandle.addPlayerVault(killerPlayer);
         }
     }
+
 
     @EventHandler
     public void onPlayerGetExp(PlayerExpChangeEvent event) {
@@ -60,32 +65,37 @@ public class PlayerListener implements Listener {
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
         expReward.initPlayerData(player);
-        if (rewardUtil.isWORLD_TP_ENABLED()) {
-            if (!rewardUtil.isInExcludedWorlds(player.getWorld().getName())) {
-                new BukkitRunnable() {
-                    @Override
-                    public void run() {
-                        teleportPlayerToMainWorld(player);
-                    }
-                }.runTaskLater(plugin, 60L);
-            }
+
+        if (!rewardUtil.isWORLD_TP_ENABLED() || rewardUtil.isInExcludedWorlds(player.getWorld().getName())) {
+            return;
         }
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                teleportPlayerToMainWorld(player);
+            }
+        }.runTaskLater(plugin, 60L);
     }
+
 
     @EventHandler
     public void onPlayerChangeWorld(PlayerChangedWorldEvent event) {
-        String MainWorldName = expReward.getMAIN_WORLD();
-        String ChangeWorldName = event.getFrom().getName();
-        if (!ChangeWorldName.equals(MainWorldName)) {
-            Player player = event.getPlayer();
-            new BukkitRunnable(){
-                @Override
-                public void run(){
-                    expHandle.SyncPlayerExp(player);
-                }
-            }.runTaskLater(plugin,20L);
+        String mainWorldName = expReward.getMAIN_WORLD();
+        String changeWorldName = event.getFrom().getName();
+
+        if (changeWorldName.equals(mainWorldName)) {
+            return;
         }
+
+        Player player = event.getPlayer();
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                expHandle.SyncPlayerExp(player);
+            }
+        }.runTaskLater(plugin, 20L);
     }
+
 
     public void teleportPlayerToMainWorld(Player player) {
         String worldName = expReward.getMAIN_WORLD();
